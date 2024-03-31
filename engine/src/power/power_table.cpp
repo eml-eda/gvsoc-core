@@ -276,5 +276,9 @@ double vp::PowerLinearVoltTable::get(double frequency)
 vp::PowerLinearFreqTable::PowerLinearFreqTable(double freq, js::Config *config)
 : freq(freq)
 {
-    this->value = config->get_double();
+    // some power configs(e.g. pulp-open) are still in string version
+    if(typeid(*config)==typeid(js::ConfigString))
+        this->value = my_stod(config->get_str());
+    else
+        this->value = config->get_double();
 }

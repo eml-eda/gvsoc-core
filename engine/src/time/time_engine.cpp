@@ -219,6 +219,9 @@ int64_t vp::TimeEngine::run_until(int64_t end_time)
         }
     }
 
+    // quick fix memory leak of stop events
+    if(event)   delete event;
+
     return time;
 }
 
